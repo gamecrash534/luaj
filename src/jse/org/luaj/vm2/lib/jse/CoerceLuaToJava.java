@@ -173,16 +173,16 @@ public class CoerceLuaToJava {
 		}
 
 		public Object coerce(LuaValue value) {
-			switch ( targetType ) {
-			case TARGET_TYPE_BYTE: return new Byte( (byte) value.toint() );
-			case TARGET_TYPE_CHAR: return new Character( (char) value.toint() );
-			case TARGET_TYPE_SHORT: return new Short( (short) value.toint() );
-			case TARGET_TYPE_INT: return new Integer( (int) value.toint() );
-			case TARGET_TYPE_LONG: return new Long( (long) value.todouble() );
-			case TARGET_TYPE_FLOAT: return new Float( (float) value.todouble() );
-			case TARGET_TYPE_DOUBLE: return new Double( (double) value.todouble() );
-			default: return null;
-			}
+            return switch (targetType) {
+                case TARGET_TYPE_BYTE -> (byte) value.toint();
+                case TARGET_TYPE_CHAR -> (char) value.toint();
+                case TARGET_TYPE_SHORT -> (short) value.toint();
+                case TARGET_TYPE_INT -> value.toint();
+                case TARGET_TYPE_LONG -> (long) value.todouble();
+                case TARGET_TYPE_FLOAT -> (float) value.todouble();
+                case TARGET_TYPE_DOUBLE -> value.todouble();
+                default -> null;
+            };
 		}
 	}
 

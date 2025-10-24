@@ -243,10 +243,7 @@ public class StringLib extends TwoArgFunction {
 				case '\n':
 					result.append( "\n" );
 					break;
-				default:
-					result.append( (byte) c );
-					break;
-				case L_ESC:
+                    case L_ESC:
 					if ( i < n ) {
 						if ( ( c = fmt.luaByte( i ) ) == L_ESC ) {
 							++i;
@@ -293,7 +290,10 @@ public class StringLib extends TwoArgFunction {
 							}
 						}
 					}
-				}
+                    default:
+                        result.append( (byte) c );
+                        break;
+                }
 			}
 			
 			return result.tostring();
@@ -1018,7 +1018,7 @@ public class StringLib extends TwoArgFunction {
 			case 'z': res = ( c == 0 ); break;  /* deprecated option */
 			default: return cl == c;
 			}
-			return ( lcl == cl ) ? res : !res;
+			return (lcl == cl) == res;
 		}
 		
 		boolean matchbracketclass( int c, int poff, int ec ) {

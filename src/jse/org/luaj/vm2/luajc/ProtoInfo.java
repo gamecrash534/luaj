@@ -61,17 +61,17 @@ public class ProtoInfo {
 		StringBuffer sb = new StringBuffer();
 		
 		// prototpye name
-		sb.append( "proto '"+name+"'\n" );
+		sb.append("proto '").append(name).append("'\n");
 		
 		// upvalues from outer scopes
 		for ( int i=0, n=(upvals!=null? upvals.length: 0); i<n; i++ )
-			sb.append( " up["+i+"]: "+upvals[i]+"\n" );
+			sb.append(" up[").append(i).append("]: ").append(upvals[i]).append("\n");
 		
 		// basic blocks
 		for ( int i=0; i<blocklist.length; i++ ) {
 			BasicBlock b = blocklist[i];
 			int pc0 = b.pc0;
-			sb.append( "  block "+b.toString() );
+			sb.append("  block ").append(b.toString());
 			appendOpenUps( sb, -1 );
 			
 			// instructions
@@ -86,7 +86,7 @@ public class ProtoInfo {
 					VarInfo v = vars[j][pc];
 					String u = (v==null? "": v.upvalue!=null? !v.upvalue.rw? "[C] ": (v.allocupvalue&&v.pc==pc? "[*] ": "[]  "): "    ");
 					String s = v==null? "null   ": String.valueOf(v);
-					sb.append( s+u);
+					sb.append(s).append(u);
 				}
 				sb.append( "  " );
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -115,7 +115,7 @@ public class ProtoInfo {
 		for ( int j=0; j<prototype.maxstacksize; j++ ) {
 			VarInfo v = (pc<0? params[j]: vars[j][pc]);
 			if ( v != null && v.pc == pc && v.allocupvalue ) {
-				sb.append( "    open: "+v.upvalue+"\n" );
+				sb.append("    open: ").append(v.upvalue).append("\n");
 			}
 		}
 	}
@@ -144,8 +144,10 @@ public class ProtoInfo {
 				else {
 					for ( int i=0; i<nprev; i++ ) {
 						BasicBlock bp = b0.prev[i];
-						if ( v[slot][bp.pc1] == VarInfo.INVALID )
-							var = VarInfo.INVALID;
+                        if (v[slot][bp.pc1] == VarInfo.INVALID) {
+                            var = VarInfo.INVALID;
+                            break;
+                        }
 					}
 				}
 				if ( var == null )

@@ -365,7 +365,7 @@ public class Globals extends LuaTable {
 		}
 		public long skip(long n) throws IOException {
 			final long k = Math.min(n, j - i);
-			i += k;
+			i += (int) k;
 			return k;
 		}		
 		public int available() throws IOException {

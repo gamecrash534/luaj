@@ -121,6 +121,6 @@ public class LuaUserdata extends LuaValue {
 	
 	// __eq metatag processing
 	public boolean eqmt( LuaValue val ) {
-		return m_metatable!=null && val.isuserdata()? LuaValue.eqmtcall(this, m_metatable, val, val.getmetatable()): false; 
+		return m_metatable != null && val.isuserdata() && LuaValue.eqmtcall(this, m_metatable, val, val.getmetatable());
 	}
 }

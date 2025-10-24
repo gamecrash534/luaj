@@ -170,7 +170,7 @@ public class LexState extends Constants {
 	static {
 		for ( int i=0; i<NUM_RESERVED; i++ ) {
 			LuaString ts = (LuaString) LuaValue.valueOf( luaX_tokens[i] );
-			RESERVED.put(ts, new Integer(FIRST_RESERVED+i));
+			RESERVED.put(ts, FIRST_RESERVED+i);
 		}
 	}
 
@@ -1695,7 +1695,7 @@ public class LexState extends Constants {
 		    if (nexps != nvars) {
 		      this.adjust_assign(nvars, nexps, e);
 		      if (nexps > nvars)
-		        this.fs.freereg -= nexps - nvars;  /* remove extra values */
+		        this.fs.freereg -= (short) (nexps - nvars);  /* remove extra values */
 	    }
 	    else {
 	    	fs.setoneret(e);  /* close last expression */
@@ -1939,9 +1939,8 @@ public class LexState extends Constants {
 
 	void ifstat(int line) {
 		IntPtr escapelist = new IntPtr(NO_JUMP);  /* exit list for finished parts */
-		test_then_block(escapelist);  /* IF cond THEN block */
-		while (t.token == TK_ELSEIF)
-		    test_then_block(escapelist);  /* ELSEIF cond THEN block */
+        do test_then_block(escapelist);  /* ELSEIF cond THEN block */
+        while (t.token == TK_ELSEIF);
 		if (testnext(TK_ELSE))
 		    block();  /* `else' part */
 		check_match(TK_END, TK_IF, line);

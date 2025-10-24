@@ -21,10 +21,7 @@
 ******************************************************************************/
 package org.luaj.vm2.ast;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 
 public class NameScope {
@@ -37,8 +34,7 @@ public class NameScope {
 	        "false", "for", "function", "if", "in", "local",
 	        "nil", "not", "or", "repeat", "return", 
 	        "then", "true", "until", "while" };
-		for ( int i=0; i<k.length; i++ )
-			LUA_KEYWORDS.add( k[i] );
+        LUA_KEYWORDS.addAll(Arrays.asList(k));
 	}
 	
 	public final Map<String,Variable> namedVariables = new HashMap<String,Variable>();

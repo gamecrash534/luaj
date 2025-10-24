@@ -2007,7 +2007,7 @@ public Token getNextToken()
            matchedToken.specialToken = specialToken;
        if (jjnewLexState[jjmatchedKind] != -1)
          curLexState = jjnewLexState[jjmatchedKind];
-           return matchedToken;
+       return matchedToken;
         }
         else if ((jjtoSkip[jjmatchedKind >> 6] & (1L << (jjmatchedKind & 077))) != 0L)
         {
@@ -2027,12 +2027,12 @@ public Token getNextToken()
               SkipLexicalActions(null);
          if (jjnewLexState[jjmatchedKind] != -1)
            curLexState = jjnewLexState[jjmatchedKind];
-           continue EOFLoop;
+         continue EOFLoop;
         }
         jjimageLen += jjmatchedPos + 1;
       if (jjnewLexState[jjmatchedKind] != -1)
         curLexState = jjnewLexState[jjmatchedKind];
-        curPos = 0;
+      curPos = 0;
         jjmatchedKind = 0x7fffffff;
         try {
            curChar = input_stream.readChar();

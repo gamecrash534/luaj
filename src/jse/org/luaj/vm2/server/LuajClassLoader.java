@@ -22,6 +22,7 @@
 package org.luaj.vm2.server;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -135,23 +136,25 @@ public class LuajClassLoader extends ClassLoader {
 
 	private Class<?> loadAsUserClass(String classname) throws ClassNotFoundException {
 		final String path = classname.replace('.', '/').concat(".class");
-		InputStream is = getResourceAsStream(path);
-		if (is != null) {
-			try {
-				ByteArrayOutputStream baos = new ByteArrayOutputStream();
-				byte[] b = new byte[1024];
-				for (int n = 0; (n = is.read(b)) >= 0;)
-					baos.write(b, 0, n);
-				byte[] bytes = baos.toByteArray();
-				Class<?> result = super.defineClass(classname, bytes, 0,
+		try (InputStream is = getResourceAsStream(path)) {
+			if (is != null) {
+				try {
+					ByteArrayOutputStream baos = new ByteArrayOutputStream();
+					byte[] b = new byte[1024];
+					for (int n = 0; (n = is.read(b)) >= 0;)
+						baos.write(b, 0, n);
+					byte[] bytes = baos.toByteArray();
+					Class<?> result = super.defineClass(classname, bytes, 0,
 						bytes.length);
-				classes.put(classname, result);
-				return result;
-			} catch (java.io.IOException e) {
-				throw new ClassNotFoundException("Read failed: " + classname
+					classes.put(classname, result);
+					return result;
+				} catch (java.io.IOException e) {
+					throw new ClassNotFoundException("Read failed: " + classname
 						+ ": " + e);
+				}
+				throw new ClassNotFoundException("Not found: " + classname);
 			}
-		}
-		throw new ClassNotFoundException("Not found: " + classname);
+		} catch (IOException ignored) { }
+
 	}
 }

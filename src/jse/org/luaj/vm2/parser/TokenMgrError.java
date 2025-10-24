@@ -2,6 +2,8 @@
 /* JavaCCOptions: */
 package org.luaj.vm2.parser;
 
+import java.io.Serial;
+
 /** Token Manager Error. */
 public class TokenMgrError extends Error
 {
@@ -11,6 +13,7 @@ public class TokenMgrError extends Error
    * Increment only if the <i>serialized</i> form of the
    * class changes.
    */
+  @Serial
   private static final long serialVersionUID = 1L;
 
   /*
@@ -82,7 +85,7 @@ public class TokenMgrError extends Error
         default:
           if ((ch = str.charAt(i)) < 0x20 || ch > 0x7e) {
             String s = "0000" + Integer.toString(ch, 16);
-            retval.append("\\u" + s.substring(s.length() - 4, s.length()));
+            retval.append("\\u").append(s.substring(s.length() - 4, s.length()));
           } else {
             retval.append(ch);
           }

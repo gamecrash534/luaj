@@ -160,7 +160,7 @@ public class OsLib extends TwoArgFunction {
 						tbl.set("min", LuaValue.valueOf(d.get(Calendar.MINUTE)));
 						tbl.set("sec", LuaValue.valueOf(d.get(Calendar.SECOND)));
 						tbl.set("wday", LuaValue.valueOf(d.get(Calendar.DAY_OF_WEEK)));
-						tbl.set("yday", LuaValue.valueOf(d.get(0x6))); // Day of year
+						tbl.set("yday", LuaValue.valueOf(d.get(Calendar.DAY_OF_YEAR))); // Day of year
 						tbl.set("isdst", LuaValue.valueOf(isDaylightSavingsTime(d)));
 						return tbl;
 					}
@@ -254,16 +254,10 @@ public class OsLib extends TwoArgFunction {
 			case '\n':
 				result.append( "\n" );
 				break;
-			default:
-				result.append( c );
-				break;
-			case '%':
+                case '%':
 				if (i >= n) break;
 				switch ( c = fmt[i++ ] ) {
-				default:
-					LuaValue.argerror(1, "invalid conversion specifier '%"+c+"'");
-					break;
-				case '%':
+                    case '%':
 					result.append( (byte)'%' );
 					break;
 				case 'a':
@@ -337,8 +331,14 @@ public class OsLib extends TwoArgFunction {
 					result.append((tzo>=0? "+": "-") + h + m);
 					break;
 				}
-				}
-			}
+                    default:
+                        LuaValue.argerror(1, "invalid conversion specifier '%"+c+"'");
+                        break;
+                }
+                default:
+                    result.append( c );
+                    break;
+            }
 		}
 		return result.tojstring();
 	}

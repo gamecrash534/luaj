@@ -559,7 +559,7 @@ public class DebugLib extends TwoArgFunction {
 				sb.append( c.shortsource() );
 				sb.append( ':' );
 				if (c.currentline() > 0)
-					sb.append( c.currentline()+":" );
+					sb.append(c.currentline()).append(":");
 				sb.append( " in " );
 				DebugInfo ar = auxgetinfo("n", c.f, c);
 				if (c.linedefined() == 0)

@@ -458,7 +458,7 @@ public class FuncState extends Constants {
 
 	void reserveregs(int n) {
 		this.checkstack(n);
-		this.freereg += n;
+		this.freereg += (short) n;
 	}
 
 	void freereg(int reg) {
@@ -479,7 +479,7 @@ public class FuncState extends Constants {
 			return ((Integer) h.get(v)).intValue();
 		}
 		final int idx = this.nk;
-		this.h.put(v, new Integer(idx));
+		this.h.put(v, idx);
 		final Prototype f = this.f;
 		if (f.k == null || nk + 1 >= f.k.length)
 			f.k = realloc( f.k, nk*2 + 1 );

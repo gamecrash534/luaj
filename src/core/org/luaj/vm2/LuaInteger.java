@@ -134,7 +134,7 @@ public class LuaInteger extends LuaNumber {
 	public LuaValue neg() { return valueOf(-(long)v); }
 	
 	// object equality, used for key comparison
-	public boolean equals(Object o) { return o instanceof LuaInteger? ((LuaInteger)o).v == v: false; }
+	public boolean equals(Object o) { return o instanceof LuaInteger && ((LuaInteger) o).v == v; }
 	
 	// equality w/ metatable processing
 	public LuaValue eq( LuaValue val )    { return val.raweq(v)? TRUE: FALSE; }

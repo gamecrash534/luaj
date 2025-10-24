@@ -516,37 +516,37 @@ public class JavaBuilder {
 	}
 
 	public void unaryop(int o) {
-		String op;
+		String op = "";
 		switch (o) {
-			default:
 			case Lua.OP_UNM: op = "neg"; break;
 			case Lua.OP_NOT: op = "not"; break;
 			case Lua.OP_LEN: op = "len"; break;
+			default:
 		}
         append(factory.createInvoke(STR_LUAVALUE, op, TYPE_LUAVALUE, Type.NO_ARGS, Constants.INVOKEVIRTUAL));
 	}
 	
 	public void binaryop(int o) {
-		String op;
+		String op = "";
 		switch (o) {
-			default: 
 			case Lua.OP_ADD: op = "add"; break;
 			case Lua.OP_SUB: op = "sub"; break;
 			case Lua.OP_MUL: op = "mul"; break;
 			case Lua.OP_DIV: op = "div"; break;
 			case Lua.OP_MOD: op = "mod"; break;
 			case Lua.OP_POW: op = "pow"; break;
+			default:
 		}
         append(factory.createInvoke(STR_LUAVALUE, op, TYPE_LUAVALUE, ARG_TYPES_LUAVALUE, Constants.INVOKEVIRTUAL));
 	}
 
 	public void compareop(int o) {
-		String op;
+		String op = "";
 		switch (o) {
-			default: 
 			case Lua.OP_EQ: op = "eq_b"; break;
 			case Lua.OP_LT: op = "lt_b"; break;
 			case Lua.OP_LE: op = "lteq_b"; break;
+			default:
 		}
         append(factory.createInvoke(STR_LUAVALUE, op, Type.BOOLEAN, ARG_TYPES_LUAVALUE, Constants.INVOKEVIRTUAL));
 	}
@@ -745,10 +745,10 @@ public class JavaBuilder {
 	
 	public void addBranch( int pc, int branchType, int targetpc ) {
 		switch ( branchType ) {
-		default: 
 		case BRANCH_GOTO: branches[pc]  = new GOTO(null); break;
 		case BRANCH_IFNE:  branches[pc] = new IFNE(null); break;
 		case BRANCH_IFEQ:  branches[pc] = new IFEQ(null); break;
+		default:
 		}
 		targets[pc] = targetpc;
 		append(branches[pc]);

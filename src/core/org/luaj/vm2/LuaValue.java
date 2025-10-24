@@ -2152,7 +2152,7 @@ public class LuaValue extends Varargs {
 	 */
 	public static final boolean eqmtcall(LuaValue lhs, LuaValue lhsmt, LuaValue rhs, LuaValue rhsmt) {
 		LuaValue h = lhsmt.rawget(EQ);
-		return h.isnil() || h!=rhsmt.rawget(EQ)? false: h.call(lhs,rhs).toboolean();
+		return !h.isnil() && h == rhsmt.rawget(EQ) && h.call(lhs, rhs).toboolean();
 	}
 	
 	/** Add: Perform numeric add operation with another value
@@ -3441,7 +3441,7 @@ public class LuaValue extends Varargs {
 		switch ( length ) {
 		case 0: return NONE;
 		case 1: return v[offset];
-		case 2: return new Varargs.PairVarargs(v[offset+0],v[offset+1]);
+		case 2: return new Varargs.PairVarargs(v[offset],v[offset+1]);
 		default: return new Varargs.ArrayPartVarargs(v, offset, length, NONE);
 		}
 	}

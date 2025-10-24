@@ -144,27 +144,27 @@ public class LuaClosure extends LuaFunction {
 	public final LuaValue call(LuaValue arg) {
 		LuaValue[] stack = getNewStack();
 		switch ( p.numparams ) {
-		default: stack[0]=arg; return execute(stack,NONE).arg1();
 		case 0: return execute(stack,arg).arg1();
+		default: stack[0]=arg; return execute(stack,NONE).arg1();
 		}
 	}
 	
 	public final LuaValue call(LuaValue arg1, LuaValue arg2) {
 		LuaValue[] stack = getNewStack();
 		switch ( p.numparams ) {
-		default: stack[0]=arg1; stack[1]=arg2; return execute(stack,NONE).arg1();
 		case 1: stack[0]=arg1; return execute(stack,arg2).arg1();
 		case 0: return execute(stack,p.is_vararg!=0? varargsOf(arg1,arg2): NONE).arg1();
+		default: stack[0]=arg1; stack[1]=arg2; return execute(stack,NONE).arg1();
 		}
 	}
 
 	public final LuaValue call(LuaValue arg1, LuaValue arg2, LuaValue arg3) {
 		LuaValue[] stack = getNewStack();
 		switch ( p.numparams ) {
-		default: stack[0]=arg1; stack[1]=arg2; stack[2]=arg3; return execute(stack,NONE).arg1();
 		case 2: stack[0]=arg1; stack[1]=arg2; return execute(stack,arg3).arg1();
 		case 1: stack[0]=arg1; return execute(stack,p.is_vararg!=0? varargsOf(arg2,arg3): NONE).arg1();
 		case 0: return execute(stack,p.is_vararg!=0? varargsOf(arg1,arg2,arg3): NONE).arg1();
+		default: stack[0]=arg1; stack[1]=arg2; stack[2]=arg3; return execute(stack,NONE).arg1();
 		}
 	}
 
@@ -334,28 +334,28 @@ public class LuaClosure extends LuaFunction {
 					continue;
 					
 				case Lua.OP_EQ: /*	A B C	if ((RK(B) == RK(C)) ~= A) then pc++		*/
-					if ( ((b=i>>>23)>0xff? k[b&0x0ff]: stack[b]).eq_b((c=(i>>14)&0x1ff)>0xff? k[c&0x0ff]: stack[c]) != (a!=0) )
+					if (((b = i >>> 23) > 0xff ? k[b & 0x0ff] : stack[b]).eq_b((c = (i >> 14) & 0x1ff) > 0xff ? k[c & 0x0ff] : stack[c]) == (a == 0))
 						++pc;
 					continue;
 					
 				case Lua.OP_LT: /*	A B C	if ((RK(B) <  RK(C)) ~= A) then pc++  		*/
-					if ( ((b=i>>>23)>0xff? k[b&0x0ff]: stack[b]).lt_b((c=(i>>14)&0x1ff)>0xff? k[c&0x0ff]: stack[c]) != (a!=0) )
+					if (((b = i >>> 23) > 0xff ? k[b & 0x0ff] : stack[b]).lt_b((c = (i >> 14) & 0x1ff) > 0xff ? k[c & 0x0ff] : stack[c]) == (a == 0))
 						++pc;
 					continue;
 					
 				case Lua.OP_LE: /*	A B C	if ((RK(B) <= RK(C)) ~= A) then pc++  		*/
-					if ( ((b=i>>>23)>0xff? k[b&0x0ff]: stack[b]).lteq_b((c=(i>>14)&0x1ff)>0xff? k[c&0x0ff]: stack[c]) != (a!=0) )
+					if (((b = i >>> 23) > 0xff ? k[b & 0x0ff] : stack[b]).lteq_b((c = (i >> 14) & 0x1ff) > 0xff ? k[c & 0x0ff] : stack[c]) == (a == 0))
 						++pc;
 					continue;
 					
 				case Lua.OP_TEST: /*	A C	if not (R(A) <=> C) then pc++			*/
-					if ( stack[a].toboolean() != ((i&(0x1ff<<14))!=0) )
+					if (stack[a].toboolean() == ((i & (0x1ff << 14)) == 0))
 						++pc;
 					continue;
 					
 				case Lua.OP_TESTSET: /*	A B C	if (R(B) <=> C) then R(A):= R(B) else pc++	*/
 					/* note: doc appears to be reversed */
-					if ( (o=stack[i>>>23]).toboolean() != ((i&(0x1ff<<14))!=0) )
+					if ((o = stack[i >>> 23]).toboolean() == ((i & (0x1ff << 14)) == 0))
 						++pc;
 					else
 						stack[a] = o; // TODO: should be sBx?

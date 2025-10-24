@@ -2,6 +2,8 @@
 /* JavaCCOptions:TOKEN_EXTENDS=,KEEP_LINE_COL=null,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package org.luaj.vm2.parser;
 
+import java.io.Serial;
+
 /**
  * Describes the input token stream.
  */
@@ -13,6 +15,7 @@ public class Token implements java.io.Serializable {
    * Increment only if the <i>serialized</i> form of the
    * class changes.
    */
+  @Serial
   private static final long serialVersionUID = 1L;
 
   /**

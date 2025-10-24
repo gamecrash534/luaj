@@ -115,7 +115,7 @@ class JavaClass extends JavaInstance implements CoerceJavaToLua.Coercion {
 			switch ( list.size() ) {
 			case 0: break;
 			case 1: map.put(NEW, list.get(0)); break;
-			default: map.put(NEW, JavaConstructor.forConstructors( (JavaConstructor[])list.toArray(new JavaConstructor[list.size()]) ) ); break;
+			default: map.put(NEW, JavaConstructor.forConstructors( (JavaConstructor[]) list.toArray(new JavaConstructor[list.size()]) ) ); break;
 			}
 			
 			for ( Iterator it=namedlists.entrySet().iterator(); it.hasNext(); ) {
@@ -125,7 +125,7 @@ class JavaClass extends JavaInstance implements CoerceJavaToLua.Coercion {
 				map.put( LuaValue.valueOf(name),
 					methods.size()==1? 
 						methods.get(0): 
-						JavaMethod.forMethods( (JavaMethod[])methods.toArray(new JavaMethod[methods.size()])) );
+						JavaMethod.forMethods( (JavaMethod[]) methods.toArray(new JavaMethod[methods.size()])) );
 			}
 			methods = map;
 		}

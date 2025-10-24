@@ -247,15 +247,15 @@ public class JavaGen {
 						for ( int i=1; i<b; i++ )
 							builder.loadLocal(pc, a+i);
 						break;
-					default: // fixed arg count > 3
-						builder.newVarargs( pc, a+1, b-1 );
-						narg = -1;
-						break;
-					case -1: // prev vararg result
+                        case -1: // prev vararg result
 						loadVarargResults( builder, pc, a+1, vresultbase );
 						narg = -1;
 						break;
-					}
+                        default: // fixed arg count > 3
+                            builder.newVarargs( pc, a+1, b-1 );
+                            narg = -1;
+                            break;
+                    }
 					
 					// call or invoke
 					boolean useinvoke = narg<0 || c<1 || c>2;
@@ -274,6 +274,10 @@ public class JavaGen {
 							builder.arg( 1 );
 						builder.storeLocal(pc, a);
 						break;
+                        case 0: // vararg result
+						vresultbase = a;
+						builder.storeVarresult();
+						break;
 					default: // fixed result count - unpack args
 						for ( int i=1; i<c; i++ ) {
 							if ( i+1 < c )
@@ -282,11 +286,7 @@ public class JavaGen {
 							builder.storeLocal(pc, a+i-1);
 						}
 						break;
-					case 0: // vararg result
-						vresultbase = a;
-						builder.storeVarresult();
-						break;
-					}
+                    }
 					}
 					break;
 					
@@ -303,13 +303,13 @@ public class JavaGen {
 					case 2: 
 						builder.loadLocal(pc, a+1);
 						break;
+                        case 0: // prev vararg result
+						loadVarargResults( builder, pc, a+1, vresultbase );
+						break;
 					default: // fixed arg count > 1
 						builder.newVarargs( pc, a+1, b-1 );
 						break;
-					case 0: // prev vararg result
-						loadVarargResults( builder, pc, a+1, vresultbase );
-						break;
-					}
+                    }
 					builder.newTailcallVarargs();
 					builder.areturn();
 					break;

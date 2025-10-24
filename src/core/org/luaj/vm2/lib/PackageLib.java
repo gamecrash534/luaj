@@ -22,6 +22,7 @@
 package org.luaj.vm2.lib;
 
 import java.io.InputStream;
+import java.nio.file.FileSystems;
 
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.LuaFunction;
@@ -119,7 +120,7 @@ public class PackageLib extends TwoArgFunction {
 
 	private static final LuaString _SENTINEL   = valueOf("\u0001");
 	
-	private static final String FILE_SEP = System.getProperty("file.separator");
+	private static final String FILE_SEP = FileSystems.getDefault().getSeparator();
 
 	public PackageLib() {}
 
@@ -318,7 +319,7 @@ public class PackageLib extends TwoArgFunction {
 				// report error
 				if ( sb == null )
 					sb = new StringBuffer();
-				sb.append( "\n\t"+filename );
+				sb.append("\n\t").append(filename);
 			}
 			return varargsOf(NIL, valueOf(sb.toString()));
 		}

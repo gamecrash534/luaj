@@ -176,7 +176,7 @@ public class LuaScriptEngine extends AbstractScriptEngine implements ScriptEngin
 
 	// ------ convert char stream to byte stream for lua compiler ----- 
 
-	private final class Utf8Encoder extends InputStream {
+	private static final class Utf8Encoder extends InputStream {
 		private final Reader r;
 		private final int[] buf = new int[2];
 		private int n;
@@ -244,8 +244,8 @@ public class LuaScriptEngine extends AbstractScriptEngine implements ScriptEngin
 		case LuaValue.TSTRING: return luajValue.tojstring();
 		case LuaValue.TUSERDATA: return luajValue.checkuserdata(Object.class);
 		case LuaValue.TNUMBER: return luajValue.isinttype()? 
-				(Object) new Integer(luajValue.toint()): 
-				(Object) new Double(luajValue.todouble());
+				(Object) luajValue.toint():
+				(Object) luajValue.todouble();
 		default: return luajValue;
 		}
 	}

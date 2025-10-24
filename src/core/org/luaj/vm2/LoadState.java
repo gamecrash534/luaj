@@ -193,7 +193,7 @@ public class LoadState {
 		for ( int i=0, j=0; i<n; ++i, j+=4 )
 			array[i] = luacLittleEndian?
 					(buf[j+3] << 24) | ((0xff & buf[j+2]) << 16) | ((0xff & buf[j+1]) << 8) | (0xff & buf[j+0]):
-					(buf[j+0] << 24) | ((0xff & buf[j+1]) << 16) | ((0xff & buf[j+2]) << 8) | (0xff & buf[j+3]);
+					(buf[j] << 24) | ((0xff & buf[j+1]) << 16) | ((0xff & buf[j+2]) << 8) | (0xff & buf[j+3]);
 
 		return array;
 	}

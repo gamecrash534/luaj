@@ -20,10 +20,7 @@ public class BasicBlock {
 	
 	public String toString() {
 		StringBuffer sb = new StringBuffer();		
-		sb.append( (pc0+1)+"-"+(pc1+1)
-				+(prev!=null? "  prv: "+str(prev,1): "")
-				+(next!=null? "  nxt: "+str(next,0): "")
-				+"\n" );
+		sb.append((pc0 + 1)).append("-").append(pc1 + 1).append(prev != null ? "  prv: " + str(prev, 1) : "").append(next != null ? "  nxt: " + str(next, 0) : "").append("\n");
 		return sb.toString();
 	}
 	

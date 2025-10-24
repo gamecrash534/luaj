@@ -94,7 +94,7 @@ public class LuaScriptEngineFactory implements ScriptEngineFactory {
     
     public String getMethodCallSyntax(String obj, String m, String... args)  {
         StringBuffer sb = new StringBuffer();
-        sb.append(obj + ":" + m + "(");
+        sb.append(obj).append(":").append(m).append("(");
         int len = args.length;
         for (int i = 0; i < len; i++) {
             if (i > 0) {

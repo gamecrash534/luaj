@@ -713,19 +713,19 @@ public class LuaTable extends LuaValue implements Metatable {
 		}
 
 		// Move hash buckets
-		for ( int i = 0; i < oldCapacity; ++i ) {
-			for ( Slot slot = oldHash[i]; slot != null; slot = slot.rest() ) {
-				int k;
-				if ( ( k = slot.arraykey( newArraySize ) ) > 0 ) {
-					StrongSlot entry = slot.first();
-					if (entry != null)
-						newArray[ k - 1 ] = entry.value();
-				} else if ( !(slot instanceof DeadSlot) ) {
-					int j = slot.keyindex( newHashMask );
-					newHash[j] = slot.relink( newHash[j] );
-				}
-			}
-		}
+        for (Slot value : oldHash) {
+            for (Slot slot = value; slot != null; slot = slot.rest()) {
+                int k;
+                if ((k = slot.arraykey(newArraySize)) > 0) {
+                    StrongSlot entry = slot.first();
+                    if (entry != null)
+                        newArray[k - 1] = entry.value();
+                } else if (!(slot instanceof DeadSlot)) {
+                    int j = slot.keyindex(newHashMask);
+                    newHash[j] = slot.relink(newHash[j]);
+                }
+            }
+        }
 
 		// Move array values into hash portion
 		for ( int i = newArraySize; i < oldArray.length; ) {
