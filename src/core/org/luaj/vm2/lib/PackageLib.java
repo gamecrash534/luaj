@@ -35,7 +35,7 @@ import org.luaj.vm2.Varargs;
  * Subclass of {@link LibFunction} which implements the lua standard package and module
  * library functions.
  * 
- * <h3>Lua Environment Variables</h3>
+ * <h2>Lua Environment Variables</h2>
  * The following variables are available to lua scrips when this library has been loaded:
  * <ul>
  * <li><code>"package.loaded"</code> Lua table of loaded modules.
@@ -44,15 +44,15 @@ import org.luaj.vm2.Varargs;
  * <li><code>"package.searchers"</code> Lua table of functions that search for object to load.
  * </ul>
  * 
- * <h3>Java Environment Variables</h3>
+ * <h2>Java Environment Variables</h2>
  * These Java environment variables affect the library behavior:
  * <ul>
  * <li><code>"luaj.package.path"</code> Initial value for <code>"package.path"</code>.  Default value is <code>"?.lua"</code>
  * </ul>
  * 
- * <h3>Loading</h3>
- * Typically, this library is included as part of a call to either
- * {@link org.luaj.vm2.lib.jse.JsePlatform#standardGlobals()} or {@link org.luaj.vm2.lib.jme.JmePlatform#standardGlobals()}
+ * <h2>Loading</h2>
+ * Typically, this library is included as part of a call to
+ * {@link org.luaj.vm2.lib.jse.JsePlatform#standardGlobals()}
  * <pre> {@code
  * Globals globals = JsePlatform.standardGlobals();
  * System.out.println( globals.get("require").call"foo") );
@@ -66,7 +66,7 @@ import org.luaj.vm2.Varargs;
  * globals.load(new PackageLib());
  * System.out.println( globals.get("require").call("foo") );
  * } </pre>
- * <h3>Limitations</h3>
+ * <h2>Limitations</h2>
  * This library has been implemented to match as closely as possible the behavior in the corresponding library in C.
  * However, the default filesystem search semantics are different and delegated to the bas library
  * as outlined in the {@link BaseLib} and {@link org.luaj.vm2.lib.jse.JseBaseLib} documentation.
@@ -75,7 +75,6 @@ import org.luaj.vm2.Varargs;
  * @see BaseLib
  * @see org.luaj.vm2.lib.jse.JseBaseLib
  * @see org.luaj.vm2.lib.jse.JsePlatform
- * @see org.luaj.vm2.lib.jme.JmePlatform
  * @see <a href="http://www.lua.org/manual/5.2/manual.html#6.3">Lua 5.2 Package Lib Reference</a>
  */
 public class PackageLib extends TwoArgFunction {

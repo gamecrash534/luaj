@@ -152,9 +152,9 @@ public class LuajClassLoader extends ClassLoader {
 					throw new ClassNotFoundException("Read failed: " + classname
 						+ ": " + e);
 				}
-				throw new ClassNotFoundException("Not found: " + classname);
 			}
 		} catch (IOException ignored) { }
 
+		throw new ClassNotFoundException("Not found: " + classname);
 	}
 }

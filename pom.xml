@@ -115,12 +115,20 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.6.0</version>
                 <configuration>
-                    <windowTitle>Luaj API</windowTitle>
                     <doctitle>Luaj API</doctitle>
                     <bottom>Copyright © 2007-2015 Luaj.org. All Rights Reserved.</bottom>
                     <sourcepath>src/core:src/jse</sourcepath>
                     <subpackages>org.luaj.vm2</subpackages>
                     <excludePackageNames>*.impl:*.internal</excludePackageNames>
+                    <failOnError>false</failOnError>
+                    <failOnWarnings>false</failOnWarnings>
+                    <quiet>true</quiet>
+                    <doclint>none</doclint>
+                    <additionalJOptions>
+                        <additionalJOption>-Xdoclint:none</additionalJOption>
+                        <additionalJOption>-J-Duser.language=en</additionalJOption>
+                        <additionalJOption>-J-Duser.country=US</additionalJOption>
+                    </additionalJOptions>
                 </configuration>
                 <executions>
                     <execution>

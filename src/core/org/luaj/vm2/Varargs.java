@@ -707,8 +707,6 @@ public abstract class Varargs {
 	/** Return Varargs that cannot be using a shared array for the storage, and is flattened.
 	 * Internal utility method not intended to be called directly from user code.
 	 * @return Varargs containing same values, but flattened and with a new array if needed.
-	 * @exclude
-	 * @hide
 	 */
 	public Varargs dealias() {
 		int n = narg();
