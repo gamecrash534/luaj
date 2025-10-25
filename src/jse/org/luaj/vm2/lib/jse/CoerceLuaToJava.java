@@ -306,20 +306,14 @@ public class CoerceLuaToJava {
 			}
 		}
 		public Object coerce(LuaValue value) {
-			switch ( value.type() ) {
-			case LuaValue.TNUMBER:
-				return value.isint()? (Object)new Integer(value.toint()): (Object)new Double(value.todouble());
-			case LuaValue.TBOOLEAN:
-				return value.toboolean()? Boolean.TRUE: Boolean.FALSE;
-			case LuaValue.TSTRING:
-				return value.tojstring();
-			case LuaValue.TUSERDATA:
-				return value.optuserdata(targetType, null);
-			case LuaValue.TNIL:
-				return null;
-			default:
-				return value;
-			}
+            return switch (value.type()) {
+                case LuaValue.TNUMBER -> value.isint() ? (Object) value.toint() : (Object) value.todouble();
+                case LuaValue.TBOOLEAN -> value.toboolean() ? Boolean.TRUE : Boolean.FALSE;
+                case LuaValue.TSTRING -> value.tojstring();
+                case LuaValue.TUSERDATA -> value.optuserdata(targetType, null);
+                case LuaValue.TNIL -> null;
+                default -> value;
+            };
 		}
 	}
 

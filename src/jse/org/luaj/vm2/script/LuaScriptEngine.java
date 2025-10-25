@@ -239,15 +239,15 @@ public class LuaScriptEngine extends AbstractScriptEngine implements ScriptEngin
 	}
 
 	static private Object toJava(LuaValue luajValue) {
-		switch ( luajValue.type() ) {
-		case LuaValue.TNIL: return null;
-		case LuaValue.TSTRING: return luajValue.tojstring();
-		case LuaValue.TUSERDATA: return luajValue.checkuserdata(Object.class);
-		case LuaValue.TNUMBER: return luajValue.isinttype()? 
-				(Object) luajValue.toint():
-				(Object) luajValue.todouble();
-		default: return luajValue;
-		}
+        return switch (luajValue.type()) {
+            case LuaValue.TNIL -> null;
+            case LuaValue.TSTRING -> luajValue.tojstring();
+            case LuaValue.TUSERDATA -> luajValue.checkuserdata(Object.class);
+            case LuaValue.TNUMBER -> luajValue.isinttype() ?
+                (Object) luajValue.toint() :
+                (Object) luajValue.todouble();
+            default -> luajValue;
+        };
 	}
 
 	static private Object toJava(Varargs v) {

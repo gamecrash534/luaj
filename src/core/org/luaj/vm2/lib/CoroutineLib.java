@@ -75,38 +75,38 @@ public class CoroutineLib extends TwoArgFunction {
 	public LuaValue call(LuaValue modname, LuaValue env) {
 		globals = env.checkglobals();
 		LuaTable coroutine = new LuaTable();
-		coroutine.set("create", new create());
-		coroutine.set("resume", new resume());
-		coroutine.set("running", new running());
-		coroutine.set("status", new status());
-		coroutine.set("yield", new yieldFn());
-		coroutine.set("wrap", new wrap());
+		coroutine.set("create", new Create());
+		coroutine.set("resume", new Resume());
+		coroutine.set("running", new Running());
+		coroutine.set("status", new Status());
+		coroutine.set("yield", new Yield());
+		coroutine.set("wrap", new Wrap());
 		env.set("coroutine", coroutine);
 		if (!env.get("package").isnil()) env.get("package").get("loaded").set("coroutine", coroutine);
 		return coroutine;
 	}
 
-	final class create extends LibFunction {
+	final class Create extends LibFunction {
 		public LuaValue call(LuaValue f) {
 			return new LuaThread(globals, f.checkfunction());
 		}
 	}
 
-	static final class resume extends VarArgFunction {
+	static final class Resume extends VarArgFunction {
 		public Varargs invoke(Varargs args) {
 			final LuaThread t = args.checkthread(1);
 			return t.resume( args.subargs(2) );
 		}
 	}
 
-	final class running extends VarArgFunction {
+	final class Running extends VarArgFunction {
 		public Varargs invoke(Varargs args) {
 			final LuaThread r = globals.running;
 			return varargsOf(r, valueOf(r.isMainThread()));
 		}
 	}
 
-	static final class status extends LibFunction {
+	static final class Status extends LibFunction {
 		public LuaValue call(LuaValue t) {
 			LuaThread lt = t.checkthread();
 			return valueOf( lt.getStatus() );
@@ -114,23 +114,23 @@ public class CoroutineLib extends TwoArgFunction {
 	}
 
 	// Rename needed because else there will be error
-	final class yieldFn extends VarArgFunction {
+	final class Yield extends VarArgFunction {
 		public Varargs invoke(Varargs args) {
 			return globals.yield( args );
 		}
 	}
 
-	final class wrap extends LibFunction {
+	final class Wrap extends LibFunction {
 		public LuaValue call(LuaValue f) {
 			final LuaValue func = f.checkfunction();
 			final LuaThread thread = new LuaThread(globals, func);
-			return new wrapper(thread);
+			return new Wrapper(thread);
 		}
 	}
 
-	static final class wrapper extends VarArgFunction {
+	static final class Wrapper extends VarArgFunction {
 		final LuaThread luathread;
-		wrapper(LuaThread luathread) {
+		Wrapper(LuaThread luathread) {
 			this.luathread = luathread;
 		}
 		public Varargs invoke(Varargs args) {
