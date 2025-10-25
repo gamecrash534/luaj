@@ -22,12 +22,7 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <luaj.version>1.0-SNAPSHOT</luaj.version>
     </properties>
-
-    <dependencies>
-
-    </dependencies>
 
     <build>
         <plugins>
@@ -56,7 +51,7 @@
                         </manifest>
                         <manifestEntries>
                             <Implementation-Title>Luaj</Implementation-Title>
-                            <Implementation-Version>${luaj.version}</Implementation-Version>
+                            <Implementation-Version>${project.version}</Implementation-Version>
                         </manifestEntries>
                     </archive>
                 </configuration>
@@ -81,7 +76,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.6.0</version>
+                <version>3.12.0</version>
                 <configuration>
                     <doctitle>Luaj API</doctitle>
                     <bottom>Copyright © 2007-2015 Luaj.org. All Rights Reserved.</bottom>
