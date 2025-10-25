@@ -4,13 +4,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>xyz.gamecrash</groupId>
+    <groupId>org.luaj</groupId>
     <artifactId>luaj</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
     <name>LuaJ</name>
     <description>Lua interpreter and scripting engine for Java</description>
+
+    <modules>
+        <module>luaj-core</module>
+        <module>luaj-jse</module>
+        <module>luaj-jme</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
@@ -20,27 +26,10 @@
     </properties>
 
     <dependencies>
-        <!-- BCEL for bytecode generation (JSE profile) -->
-        <dependency>
-            <groupId>org.apache.bcel</groupId>
-            <artifactId>bcel</artifactId>
-            <version>6.11.0</version>
-            <optional>true</optional>
-        </dependency>
+
     </dependencies>
 
     <build>
-        <sourceDirectory>src/core</sourceDirectory>
-
-        <resources>
-            <resource>
-                <directory>src/jse</directory>
-                <includes>
-                    <include>META-INF/services/**</include>
-                </includes>
-            </resource>
-        </resources>
-
         <plugins>
             <!-- Compiler Plugin -->
             <plugin>
@@ -66,7 +55,7 @@
                             <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                         </manifest>
                         <manifestEntries>
-                            <Implementation-Title>Luaj-jse</Implementation-Title>
+                            <Implementation-Title>Luaj</Implementation-Title>
                             <Implementation-Version>${luaj.version}</Implementation-Version>
                         </manifestEntries>
                     </archive>
@@ -88,27 +77,6 @@
                 </executions>
             </plugin>
 
-            <!-- Build Helper Plugin to add JSE sources -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>3.4.0</version>
-                <executions>
-                    <execution>
-                        <id>add-source</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>add-source</goal>
-                        </goals>
-                        <configuration>
-                            <sources>
-                                <source>src/jse</source>
-                            </sources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
             <!-- Javadoc Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -117,7 +85,6 @@
                 <configuration>
                     <doctitle>Luaj API</doctitle>
                     <bottom>Copyright © 2007-2015 Luaj.org. All Rights Reserved.</bottom>
-                    <sourcepath>src/core:src/jse</sourcepath>
                     <subpackages>org.luaj.vm2</subpackages>
                     <excludePackageNames>*.impl:*.internal</excludePackageNames>
                     <failOnError>false</failOnError>
@@ -141,59 +108,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <!-- JSE Profile (default) -->
-        <profile>
-            <id>jse</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <build>
-                <finalName>luaj-jse-${luaj.version}</finalName>
-            </build>
-        </profile>
-
-        <!-- JME Profile (for minimal stuff) -->
-        <profile>
-            <id>jme</id>
-            <build>
-                <finalName>luaj-jme-${luaj.version}</finalName>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-compiler-plugin</artifactId>
-                        <configuration>
-                            <source>1.3</source>
-                            <target>1.2</target>
-                            <excludes>
-                                <exclude>**/script/**</exclude>
-                                <exclude>**/luajc/**</exclude>
-                                <exclude>**/server/**</exclude>
-                                <exclude>**/jse/**</exclude>
-                            </excludes>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>build-helper-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>add-jme-source</id>
-                                <phase>generate-sources</phase>
-                                <goals>
-                                    <goal>add-source</goal>
-                                </goals>
-                                <configuration>
-                                    <sources>
-                                        <source>src/jme</source>
-                                    </sources>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>
