@@ -6,7 +6,7 @@
 
     <groupId>org.luaj</groupId>
     <artifactId>luaj</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>3.0.2</version>
     <packaging>pom</packaging>
 
     <name>LuaJ</name>
