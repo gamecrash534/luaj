@@ -59,8 +59,7 @@ public class StringLib extends TwoArgFunction {
 	/** Construct a StringLib, which can be initialized by calling it with a
 	 * modname string, and a global environment table as arguments using
 	 * {@link #call(LuaValue, LuaValue)}. */
-	public StringLib() {
-	}
+	public StringLib() { }
 
 	/** Perform one-time initialization on the library by creating a table
 	 * containing the library functions, adding that table to the supplied environment,
@@ -597,6 +596,8 @@ public class StringLib extends TwoArgFunction {
 			int lastmatch = -1; /* end of last match */
 			LuaValue repl = args.arg( 3 );
 			int max_s = args.optint( 4, srclen + 1 );
+			if (max_s < 0) max_s = srclen + 1;
+
 			final boolean anchor = p.length() > 0 && p.charAt( 0 ) == '^';
 			
 			Buffer lbuf = new Buffer( srclen );
@@ -612,8 +613,7 @@ public class StringLib extends TwoArgFunction {
 					ms.add_value( lbuf, soffset, res, repl );  /* add replacement to buffer */
 					soffset = lastmatch = res;
 				}
-				else if ( soffset < srclen ) /* otherwise, skip one character */
-					lbuf.append( (byte) src.luaByte( soffset++ ) );
+				else if ( soffset < srclen ) lbuf.append( (byte) src.luaByte( soffset++ ) ); /* otherwise, skip one character */
 				else break;   /* end of subject */
 				if ( anchor ) break;
 			}

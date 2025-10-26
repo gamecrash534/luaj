@@ -358,13 +358,15 @@ public class DebugLib extends TwoArgFunction {
 	static final class upvalueid extends VarArgFunction {
 		public Varargs invoke(Varargs args) {
 			LuaValue func = args.checkfunction(1);
-			int up = args.checkint(2);
+
 			if ( func instanceof LuaClosure ) {
+				int up = args.checkint(2);
 				LuaClosure c = (LuaClosure) func;
 				if ( c.upValues != null && up > 0 && up <= c.upValues.length ) {
 					return valueOf(c.upValues[up-1].hashCode());
 				}
 			}
+
 			return NIL;
 		}
 	}
@@ -635,11 +637,13 @@ public class DebugLib extends TwoArgFunction {
 	}
 
 	public static class CallFrame {
+		static final LuaValue[] NULL = {};
+
 		LuaFunction f;
 		int pc;
 		int top;
 		Varargs v;
-		LuaValue[] stack;
+		LuaValue[] stack = NULL;
 		CallFrame previous;
 		void set(LuaClosure function, Varargs varargs, LuaValue[] stack) {
 			this.f = function;
@@ -655,7 +659,7 @@ public class DebugLib extends TwoArgFunction {
 		void reset() {
 			this.f = null;
 			this.v = null;
-			this.stack = null;
+			this.stack = NULL;
 		}
 		void instr(int pc, Varargs v, int top) {
 			this.pc = pc;
