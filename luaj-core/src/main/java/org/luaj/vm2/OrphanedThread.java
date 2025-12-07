@@ -10,7 +10,7 @@
  *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -20,8 +20,6 @@
  * THE SOFTWARE.
  ******************************************************************************/
 package org.luaj.vm2;
-
-import org.luaj.vm2.LuaThread;
 
 /**
  * {@link Error} sublcass that indicates a lua thread that is no
@@ -40,7 +38,7 @@ import org.luaj.vm2.LuaThread;
  */
 public class OrphanedThread extends Error {
 
-	public OrphanedThread() {
-		super("orphaned thread");
-	}
+    public OrphanedThread() {
+        super("orphaned thread");
+    }
 }
