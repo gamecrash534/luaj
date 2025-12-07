@@ -412,8 +412,7 @@ public class Print extends Lua {
             ps.print(s.substring(0, maxcols));
         else {
             ps.print(s);
-            for (int i = maxcols - n; --i >= 0; )
-                ps.print(' ');
+            ps.printf("%-" + maxcols + "s", s.substring(0, n));
         }
     }
 
@@ -445,45 +444,44 @@ public class Print extends Lua {
     }
 
     public static void printStack(LuaValue[] stack, int top, Varargs varargs) {
-        // print stack
-        ps.print('[');
+        StringBuilder sb = new StringBuilder("[");
         for (int i = 0; i < stack.length; i++) {
             LuaValue v = stack[i];
             if (v == null)
-                ps.print(STRING_FOR_NULL);
+                sb.append(STRING_FOR_NULL);
             else switch (v.type()) {
                 case LuaValue.TSTRING:
                     LuaString s = v.checkstring();
-                    ps.print(s.length() < 48 ?
+                    sb.append(s.length() < 48 ?
                         s.tojstring() :
                         s.substring(0, 32).tojstring() + "...+" + (s.length() - 32) + "b");
                     break;
                 case LuaValue.TFUNCTION:
-                    ps.print(v.tojstring());
+                    sb.append(v.tojstring());
                     break;
                 case LuaValue.TUSERDATA:
                     Object o = v.touserdata();
                     if (o != null) {
                         String n = o.getClass().getName();
                         n = n.substring(n.lastIndexOf('.') + 1);
-                        ps.print(n + ": " + Integer.toHexString(o.hashCode()));
+                        sb.append(n + ": " + Integer.toHexString(o.hashCode()));
                     } else {
-                        ps.print(v.toString());
+                       sb.append(v);
                     }
                     break;
                 default:
-                    ps.print(v.tojstring());
+                    sb.append(v.tojstring());
             }
             if (i + 1 == top)
-                ps.print(']');
-            ps.print(" | ");
+                sb.append(']');
+            sb.append(" | ");
         }
-        ps.print(varargs);
+        sb.append(varargs);
+        ps.println(sb);
     }
 
     private void _assert(boolean b) {
-        if (!b)
-            throw new NullPointerException("_assert failed");
+        if (!b) throw new NullPointerException("_assert failed");
     }
 
 }
