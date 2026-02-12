@@ -47,6 +47,7 @@ public class FuncState extends Constants {
     short nactvar;  /* number of active local variables */
     short nups;  /* number of upvalues */
     short freereg;  /* first free register */
+
     FuncState() {
     }
 

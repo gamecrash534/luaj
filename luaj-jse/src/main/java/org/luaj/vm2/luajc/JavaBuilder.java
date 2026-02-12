@@ -60,7 +60,6 @@ public class JavaBuilder {
     private static final Type[] ARG_TYPES_LUAVALUE_LUAVALUE_LUAVALUE = {TYPE_LUAVALUE, TYPE_LUAVALUE, TYPE_LUAVALUE};
     private static final Type[] ARG_TYPES_LUAVALUE_LUAVALUE = {TYPE_LUAVALUE, TYPE_LUAVALUE};
     private static final Type[] ARG_TYPES_LUAVALUE = {TYPE_LUAVALUE};
-    private static final Type[][] ARG_TYPES_N = {ARG_TYPES_NONE, ARG_TYPES_LUAVALUE, ARG_TYPES_LUAVALUE_LUAVALUE, ARG_TYPES_LUAVALUE_LUAVALUE_LUAVALUE, ARG_TYPES_VARARGS,};
     private static final ObjectType[] RETURN_TYPE_N = {TYPE_LUAVALUE, TYPE_LUAVALUE, TYPE_LUAVALUE, TYPE_LUAVALUE, TYPE_VARARGS,};
     private static final ObjectType TYPE_LUASTRING = new ObjectType(STR_LUASTRING);
     private static final ObjectType TYPE_LUAINTEGER = new ObjectType(STR_LUAINTEGER);
@@ -81,6 +80,7 @@ public class JavaBuilder {
     private static final String STR_FUNC3 = ThreeArgFunction.class.getName();
     // argument list types
     private static final Type[] ARG_TYPES_NONE = {};
+    private static final Type[][] ARG_TYPES_N = {ARG_TYPES_NONE, ARG_TYPES_LUAVALUE, ARG_TYPES_LUAVALUE_LUAVALUE, ARG_TYPES_LUAVALUE_LUAVALUE_LUAVALUE, ARG_TYPES_VARARGS,};
     private static final Type[] ARG_TYPES_INT = {Type.INT};
     private static final Type[] ARG_TYPES_DOUBLE = {Type.DOUBLE};
     private static final Type[] ARG_TYPES_STRING = {Type.STRING};

@@ -148,6 +148,7 @@ public class LexState extends Constants {
     LuaString source;  /* current source name */
     LuaString envn;  /* environment variable name */
     byte decpoint;  /* locale decimal point */
+
     public LexState(LuaC.CompileState state, InputStream stream) {
         this.z = stream;
         this.buff = new char[32];

@@ -1,5 +1,6 @@
 > [!IMPORTANT]
-> This is a fork of the [luaj/luaj](https://github.com/luaj/luaj) GitHub-Repository, with some adjustments and changes to my needs.
+> This is a fork of the [luaj/luaj](https://github.com/luaj/luaj) GitHub-Repository, with some adjustments and changes
+> to my needs.
 
 > [!IMPORTANT]
 > This README is just a copy-paste of the one from the original repo - without many content changes.
@@ -412,12 +413,11 @@ The ant build script is <a href="examples/android/build.xml">examples/android/bu
 
 <h4>Applet</h4>
 
-Applets in browsers should use the JsePlatform.  The permissions model in applets is
+Applets in browsers should use the JsePlatform. The permissions model in applets is
 highly restrictive, so a specialization of the <a href="#luajava">Luajava</a> library must be used that
-uses default class loading.  This is illustrated in the sample Applet
+uses default class loading. This is illustrated in the sample Applet
 <a href="examples/jse/SampleApplet.java">examples/jse/SampleApplet.java</a>,
 which can be built using <a href="build-applet.xml">build-applet.xml</a>.
-
 
 <h3>JmePlatform</h3>
 The <a href="http://luaj.org/luaj/3.0/api/org/luaj/vm2/lib/jme/JmePlatform.html">JmePlatform</a>
@@ -436,7 +436,6 @@ colocated with class files in the MIDlet jar file.  <a href="#luajava">Luajava</
 Camples code is in  
 <a href="examples/jme/SampleMIDlet.java">examples/jme/SampleMIDlet.java</a>,
 which can be built using <a href="build-midlet.xml">build-midlet.xml</a>.
-
 
 <h2>Thread Safety</h2>
 
@@ -565,9 +564,9 @@ To install dynamically from lua use java-class-based require:</em>:
 
 The <em>lua</em> command line utility includes the <em>debug</em> library by default.
 
-
 <h3><a name="luajava">The Luajava Library</a></h3>
-The <em>JsePlatform.standardGlobals()</em> includes the <em>luajava</em> library, which simplifies binding to Java classes and methods.  
+The <em>JsePlatform.standardGlobals()</em> includes the <em>luajava</em> library, which simplifies binding to Java
+classes and methods.  
 It is patterned after the original <a href="http://www.keplerproject.org/luajava/">luajava project</a>.
 
 <p>
@@ -743,10 +742,11 @@ public class hyperbolic extends TwoArgFunction {
 			return LuaValue.valueOf(Math.cosh(x.checkdouble()));
 		}
 	}
+
 }
 </pre>
 
-In this case the call to require invokes the library itself to initialize it.  The library implementation
+In this case the call to require invokes the library itself to initialize it. The library implementation
 puts entries into a table, and stores this table in the environment.
 
 <p>
@@ -760,6 +760,7 @@ The lua script used to load and test it is in <a href="examples/lua/hyperbolicap
 
 	print('sinh(0.5)', hyperbolic.sinh(0.5))
 	print('cosh(0.5)', hyperbolic.cosh(0.5))
+
 </pre>
 
 For this example to work the code in <em>hyperbolic.java</em> must be compiled and put on the class path.
@@ -775,7 +776,8 @@ javadoc for details on using that class directly.
 
 <h2>Javacc Grammar</h2>
 A Javacc grammar was developed to simplify the creation of Java-based parsers for the lua language.
-The grammar is specified for <a href="https://javacc.dev.java.net/">javacc version 5.0</a> because that tool generates standalone
+The grammar is specified for <a href="https://javacc.dev.java.net/">javacc version 5.0</a> because that tool generates
+standalone
 parsers that do not require a separate runtime.
 
 <p>
@@ -825,7 +827,8 @@ See the <a href="http://luaj.org/luaj/3.0/api/org/luaj/vm2/ast/package-summary.h
 <h1>7 - <a name="7">Building and Testing</a></h1>
 
 <h2><a name="maven">Maven integration</a></h2>
-The main jar files are now deployed in the maven central repository.  To use them in your maven-based project, list them as a dependency:
+The main jar files are now deployed in the maven central repository. To use them in your maven-based project, list them
+as a dependency:
 
 <p>
 For JSE projects, add this dependency for the luaj-jse jar:

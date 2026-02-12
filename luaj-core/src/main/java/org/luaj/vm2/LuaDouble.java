@@ -59,6 +59,11 @@ public class LuaDouble extends LuaNumber {
      */
     public static final LuaDouble NAN = new LuaDouble(Double.NaN);
 
+	/**
+	 * Constant LuaDouble representing negative NaN (not a number)
+	 */
+	public static final LuaDouble NEGNAN    = new LuaDouble( -Double.NaN );
+
     /**
      * Constant LuaDouble representing positive infinity
      */
@@ -73,6 +78,11 @@ public class LuaDouble extends LuaNumber {
      * Constant String representation for NaN (not a number), "nan"
      */
     public static final String JSTR_NAN = "nan";
+
+	/**
+	 * Constant String representation for negative NaN (not a number), "-nan"
+	 */
+	public static final String JSTR_NEGNAN    = "-nan";
 
     /**
      * Constant String representation for positive infinity, "inf"
@@ -448,17 +458,13 @@ public class LuaDouble extends LuaNumber {
     }
 
     public String tojstring() {
-		/*
-		if ( v == 0.0 ) { // never occurs in J2me
-			long bits = Double.doubleToLongBits( v );
-			return ( bits >> 63 == 0 ) ? "0" : "-0";
-		}
-		*/
+		if ( v == 0.0 ) return Double.doubleToRawLongBits(v) < 0 ? "-0" : "0";
+
         long l = (long) v;
         if (l == v)
             return Long.toString(l);
         if (Double.isNaN(v))
-            return JSTR_NAN;
+			return Double.doubleToRawLongBits(v) < 0 ? JSTR_NEGNAN : JSTR_NAN;
         if (Double.isInfinite(v))
             return (v < 0 ? JSTR_NEGINF : JSTR_POSINF);
         return Float.toString((float) v);

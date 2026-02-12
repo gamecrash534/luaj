@@ -39,7 +39,8 @@ public class VarInfo {
         return slot < 0 ? "x.x" : (slot + "." + pc);
     }
 
-    /** Return replacement variable if there is exactly one value possible,
+    /**
+     * Return replacement variable if there is exactly one value possible,
      * otherwise compute entire collection of variables and return null.
      * Computes the list of aall variable values, and saves it for the future.
      *
