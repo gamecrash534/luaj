@@ -6,12 +6,12 @@
 > There are currently no examples provided - thus all links to examples do not work at the moment.
 
 # Getting Started with LuaJ
+<sub>
 
-<small>
 Copyright &copy; 2009-2014 Luaj.org.
-Freely available under the terms of the
-[LuaJ License](LICENSE).
-</small>
+Freely available under the terms of the [LuaJ License](LICENSE).
+
+</sub>
 
 ---
 
