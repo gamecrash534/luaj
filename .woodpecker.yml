@@ -21,7 +21,7 @@ steps:
           </servers>
         </settings>
         EOF
-      - mvn clean package javadoc:jar deploy -DksipTests
+      - mvn -B clean deploy -DskipTests
     environment:
       OWNER:
         from_secret: reg_owner
